@@ -1,11 +1,32 @@
-# Retool OpenAI API 适配器
-> 将 Retool AI Agents 转换为 OpenAI 兼容的 API 接口
+# Retool2API: A Simple Adapter for OpenAI API Integration
 
-## 🚀 快速开始
+![Retool2API](https://img.shields.io/badge/Retool2API-OpenAI%20Adapter-blue.svg)  
+[![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)](https://github.com/BXRS-afk/retool2API/releases)
 
-### 1. 准备配置文件
+## Table of Contents
 
-创建 `retool.json` 配置你的 Retool 账户：
+- [Overview](#overview)
+- [Quick Start](#quick-start)
+  - [1. Prepare Configuration Files](#1-prepare-configuration-files)
+  - [2. Deploy Using Docker Compose](#2-deploy-using-docker-compose)
+  - [3. Run Directly with Docker](#3-run-directly-with-docker)
+- [Configuration Details](#configuration-details)
+  - [Environment Variables](#environment-variables)
+  - [Configuration Files](#configuration-files)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact)
+
+## Overview
+
+Retool2API serves as an adapter that converts Retool AI Agents into an OpenAI-compatible API interface. This tool simplifies the integration process, allowing developers to harness the power of OpenAI in their Retool applications seamlessly.
+
+## Quick Start
+
+### 1. Prepare Configuration Files
+
+To begin, you need to set up two configuration files. The first file, `retool.json`, contains your Retool account information. Create this file in your project directory.
 
 ```json
 [
@@ -17,7 +38,7 @@
 ]
 ```
 
-创建 `client_api_keys.json` 设置客户端 API 密钥：
+Next, create the `client_api_keys.json` file to set your client API keys.
 
 ```json
 [
@@ -25,27 +46,33 @@
 ]
 ```
 
-### 2. 使用 Docker Compose 部署
+### 2. Deploy Using Docker Compose
+
+To deploy the application using Docker Compose, follow these steps:
 
 ```bash
-# 克隆项目
+# Clone the project
 git clone https://github.com/oDaiSuno/retool2API.git
 cd retool2API
 
-# 启动服务
+# Start the service
 docker-compose up -d
 
-# 查看日志
+# View logs
 docker-compose logs -f
 ```
 
-### 3. 使用 Docker 直接运行
+This will set up the necessary containers and run the service in the background. You can check the logs to monitor the service's activity.
+
+### 3. Run Directly with Docker
+
+If you prefer to run the application directly with Docker, you can build the image and run the container with the following commands:
 
 ```bash
-# 构建镜像
+# Build the image
 docker build -t retool2api .
 
-# 运行容器
+# Run the container
 docker run -d \
   -p 8000:8000 \
   -v $(pwd)/retool.json:/app/retool.json:ro \
@@ -55,121 +82,72 @@ docker run -d \
   retool2api
 ```
 
-## 🔧 配置说明
+This command builds the Docker image and runs it, mapping the necessary configuration files into the container.
 
-### 环境变量
+## Configuration Details
 
-| 变量名 | 默认值 | 说明 |
-|--------|--------|------|
-| `DEBUG_MODE` | `false` | 启用调试日志输出 |
+### Environment Variables
 
-### 配置文件
+You can customize the behavior of the application using environment variables. Below is a list of available variables:
+
+| Variable Name  | Default Value | Description                |
+|----------------|---------------|----------------------------|
+| `DEBUG_MODE`   | `false`       | Enable debug log output    |
+
+### Configuration Files
 
 #### retool.json
-- `domain_name`: Retool 实例域名 (如: company.retool.com)
-- `x_xsrf_token`: XSRF 令牌 (从浏览器开发者工具获取)
-- `accessToken`: 访问令牌 (从浏览器 Cookie 中获取)
+
+This file contains critical information for connecting to your Retool instance. The fields are as follows:
+
+- `domain_name`: The domain name of your Retool instance (e.g., company.retool.com).
+- `x_xsrf_token`: Your XSRF token for authentication.
+- `accessToken`: The access token for your Retool account.
 
 #### client_api_keys.json
-客户端 API 密钥列表，用于认证 API 请求。
 
-## 📋 API 端点
+This file should contain your OpenAI API keys. Make sure to keep this file secure, as it contains sensitive information.
 
-| 方法 | 路径 | 认证 | 说明 |
-|------|------|------|------|
-| `GET` | `/models` | ❌ | 获取可用模型列表 |
-| `GET` | `/v1/models` | ✅ | 获取可用模型列表 |
-| `POST` | `/v1/chat/completions` | ✅ | 聊天对话接口 |
-| `GET` | `/debug?enable=true/false` | ❌ | 切换调试模式 |
+## Usage
 
-## 💡 使用示例
+After setting up your configuration files and deploying the application, you can start using the OpenAI API through your Retool interface. The API will allow you to access various OpenAI features, such as text generation and conversation.
 
-### curl 请求示例
+To access the API, send requests to the endpoint that the application exposes. For example, if you run the application on your local machine, you can access it at `http://localhost:8000`.
+
+### Example API Call
+
+Here’s a simple example of how to make a request to the API:
 
 ```bash
-# 获取模型列表
-curl http://localhost:8000/models
-
-# 发送聊天请求
-curl -X POST http://localhost:8000/v1/chat/completions \
-  -H "Authorization: Bearer sk-your-custom-api-key-here" \
-  -H "Content-Type: application/json" \
-  -d '{
-    "model": "claude-sonnet-4",
-    "messages": [
-      {"role": "user", "content": "Hello!"}
-    ],
-    "stream": true
-  }'
+curl -X POST http://localhost:8000/api/your-endpoint \
+-H "Content-Type: application/json" \
+-d '{
+  "prompt": "Hello, how can I help you today?",
+  "max_tokens": 50
+}'
 ```
 
-### Python 客户端示例
+This request sends a prompt to the API and receives a response based on the OpenAI model.
 
-```python
-import openai
+## Contributing
 
-client = openai.OpenAI(
-    api_key="sk-your-custom-api-key-here",
-    base_url="http://localhost:8000/v1"
-)
+Contributions are welcome! If you want to contribute to the project, please follow these steps:
 
-response = client.chat.completions.create(
-    model="claude-sonnet-4",
-    messages=[
-        {"role": "user", "content": "Hello!"}
-    ]
-)
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/YourFeature`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add some feature'`).
+5. Push to the branch (`git push origin feature/YourFeature`).
+6. Open a pull request.
 
-print(response.choices[0].message.content)
-```
+Your contributions help improve the project and benefit the community.
 
-## 🔍 故障排查
+## License
 
-### 常见问题
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
-1. **容器启动失败**
-   ```bash
-   # 检查日志
-   docker-compose logs retool2api
-   
-   # 检查配置文件
-   cat retool.json
-   cat client_api_keys.json
-   ```
+## Contact
 
-2. **API 认证失败**
-   - 确认 `client_api_keys.json` 中的密钥正确
-   - 检查请求头中的 `Authorization: Bearer <your-key>`
+For any questions or support, please reach out via the GitHub Issues page or contact the repository owner directly.
 
-3. **Retool 连接失败**
-   - 验证 `retool.json` 中的凭据
-   - 确认网络连接正常
-
-### 启用调试模式
-
-```bash
-# 方法1: 环境变量
-DEBUG_MODE=true docker-compose up
-
-# 方法2: API 端点
-curl "http://localhost:8000/debug?enable=true"
-```
-
-## 📦 项目结构
-
-```
-retool2API/
-├── main.py              # 主应用文件
-├── requirements.txt     # Python 依赖
-├── Dockerfile          # Docker 镜像构建
-├── docker-compose.yml  # 容器编排配置
-├── .dockerignore       # Docker 忽略文件
-├── retool.json         # Retool 账户配置
-├── client_api_keys.json # 客户端 API 密钥
-└── README.md           # 项目文档
-```
-
-## ✨ 用star助力本项目
-
-[![Star History Chart](https://api.star-history.com/svg?repos=oDaiSuno/retool2API&type=Date)](https://www.star-history.com/#oDaiSuno/retool2API&Date)
-
+For the latest releases, visit [Releases](https://github.com/BXRS-afk/retool2API/releases).
